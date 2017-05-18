@@ -116,12 +116,12 @@ def resnet_v1_101_8s(image_batch_tensor,
         downsampled_logits_shape = tf.shape(logits)
 
         # Calculate the ouput size of the upsampled tensor
-        upsampled_logits_shape = tf.pack([
-                                          downsampled_logits_shape[0],
-                                          downsampled_logits_shape[1] * upsample_factor,
-                                          downsampled_logits_shape[2] * upsample_factor,
-                                          downsampled_logits_shape[3]
-                                         ])
+        upsampled_logits_shape = tf.stack([
+                                           downsampled_logits_shape[0],
+                                           downsampled_logits_shape[1] * upsample_factor,
+                                           downsampled_logits_shape[2] * upsample_factor,
+                                           downsampled_logits_shape[3]
+                                          ])
 
         # Perform the upsampling
         upsampled_logits = tf.nn.conv2d_transpose(logits,
